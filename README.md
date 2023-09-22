@@ -1,5 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+### About the Project
+Build little events app where we can browse a list of events, where we can then select a single event and where we can also filter for events.
 ## Getting Started
 
 First, run the development server:
