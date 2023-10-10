@@ -28,8 +28,17 @@ export default function FilteredEventsPage(props) {
     }
   }, [data]);
 
+  let pageHeadData = <Head>
+    <title>Filtered Events</title>
+    <meta name="description" content="A list of filtered events." />
+  </Head>
   if (!loadedEvents) {
-    return <p className="center">Loading...</p>
+    return (
+      <Fragment>
+        {pageHeadData}
+        <p className="center">Loading...</p>
+      </Fragment>
+    )
   }
   const filteredYear = filterData[0];
   const filteredMonth = filterData[1];
@@ -37,9 +46,16 @@ export default function FilteredEventsPage(props) {
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
 
+  pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta name="description" content={`All events for ${numMonth}/${numYear}`} />
+    </Head>
+  )
   if (isNaN(numYear) || isNaN(numMonth) || numYear > 2030 || numYear < 2021 || numMonth < 1 || numMonth > 12 || error) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p>Invalid filter. Please adjust you values!</p>
         </ErrorAlert>
@@ -69,6 +85,7 @@ export default function FilteredEventsPage(props) {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p>No events found for the chosen filter!</p>
         </ErrorAlert>
@@ -84,10 +101,7 @@ export default function FilteredEventsPage(props) {
 
   return (
     <Fragment>
-      <Head>
-        <title>Filtered Events</title>
-        <meta name="description" content={`All events for ${numMonth}/${numYear}`} />
-      </Head>
+      {pageHeadData}
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </Fragment>
